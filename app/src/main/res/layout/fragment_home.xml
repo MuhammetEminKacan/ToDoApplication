@@ -24,6 +24,8 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:toDoList="@{ViewModel.toDoList}"
             app:setOnClickListener="@{ToDoClickListener}"
+            app:searchQuery="@{ViewModel.searchQuery}"
+            app:searchToDoList="@{ViewModel.searchToDoList}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"

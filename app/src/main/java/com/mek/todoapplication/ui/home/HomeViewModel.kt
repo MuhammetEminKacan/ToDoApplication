@@ -2,6 +2,8 @@ package com.mek.todoapplication.ui.home
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.mek.todoapplication.di.Repository
@@ -18,6 +20,8 @@ class HomeViewModel @Inject constructor(
 ) : AndroidViewModel(application){
 
     val toDoList = repository.localdatasource.getAllToDo().asLiveData()
+    var searchToDoList : LiveData<List<ToDoModel>> = MutableLiveData()
+    val searchQuery = MutableLiveData("")
 
     fun updateToDo(toDoModel : ToDoModel){
         val updatedModel = toDoModel.copy(isChecked = toDoModel.isChecked?.not())
@@ -25,4 +29,11 @@ class HomeViewModel @Inject constructor(
             repository.localdatasource.updateToDo(updatedModel)
         }
     }
+
+    fun searchToDo(searchQuery : String){
+        searchToDoList = repository.localdatasource.searchToDo("%$searchQuery%").asLiveData()
+        this.searchQuery.value = searchQuery
+    }
+
+
 }
